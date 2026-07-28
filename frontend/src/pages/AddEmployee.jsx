@@ -1,41 +1,155 @@
+import { useContext, useEffect, useState } from "react";
+import { EmployeeContext } from "../context/EmployeeContext";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
+import { useNavigate } from "react-router-dom";
+
 function AddEmployee() {
+  const {
+    employees,
+    setEmployees,
+    editingEmployee,
+    setEditingEmployee,
+  } = useContext(EmployeeContext);
+
+  const navigate = useNavigate();
+
+  const [employee, setEmployee] = useState({
+    name: "",
+    email: "",
+    department: "",
+    salary: "",
+  });
+
+  useEffect(() => {
+    if (editingEmployee) {
+      setEmployee(editingEmployee);
+    }
+  }, [editingEmployee]);
+
+  const handleChange = (e) => {
+    setEmployee({
+      ...employee,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (editingEmployee) {
+      const updatedEmployees = employees.map((emp) =>
+        emp.id === editingEmployee.id ? employee : emp
+      );
+
+      setEmployees(updatedEmployees);
+      setEditingEmployee(null);
+
+      alert("Employee Updated Successfully!");
+    } else {
+      const newEmployee = {
+        id: employees.length + 1,
+        ...employee,
+      };
+
+      setEmployees([...employees, newEmployee]);
+
+      alert("Employee Added Successfully!");
+    }
+
+    setEmployee({
+      name: "",
+      email: "",
+      department: "",
+      salary: "",
+    });
+
+    navigate("/employees");
+  };
+
   return (
-    <div style={{ padding: "30px" }}>
-      <h2>Add Employee</h2>
+    <>
+      <Navbar />
 
-      <input
-        type="text"
-        placeholder="Employee Name"
-        style={{ width: "300px", padding: "10px", marginBottom: "10px" }}
-      />
+      <div style={{ display: "flex" }}>
+        <Sidebar />
 
-      <br />
+        <div style={{ flex: 1, padding: "30px" }}>
+          <h1>
+            {editingEmployee ? "Edit Employee" : "Add Employee"}
+          </h1>
 
-      <input
-        type="email"
-        placeholder="Email"
-        style={{ width: "300px", padding: "10px", marginBottom: "10px" }}
-      />
+          <form onSubmit={handleSubmit} style={{ maxWidth: "500px" }}>
 
-      <br />
+            <input
+              type="text"
+              name="name"
+              placeholder="Employee Name"
+              value={employee.name}
+              onChange={handleChange}
+              style={{
+                width: "100%",
+                padding: "10px",
+                marginBottom: "15px",
+              }}
+            />
 
-      <input
-        type="text"
-        placeholder="Department"
-        style={{ width: "300px", padding: "10px", marginBottom: "10px" }}
-      />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={employee.email}
+              onChange={handleChange}
+              style={{
+                width: "100%",
+                padding: "10px",
+                marginBottom: "15px",
+              }}
+            />
 
-      <br />
+            <input
+              type="text"
+              name="department"
+              placeholder="Department"
+              value={employee.department}
+              onChange={handleChange}
+              style={{
+                width: "100%",
+                padding: "10px",
+                marginBottom: "15px",
+              }}
+            />
 
-      <button
-        style={{
-          padding: "10px 25px",
-          cursor: "pointer",
-        }}
-      >
-        Save Employee
-      </button>
-    </div>
+            <input
+              type="number"
+              name="salary"
+              placeholder="Salary"
+              value={employee.salary}
+              onChange={handleChange}
+              style={{
+                width: "100%",
+                padding: "10px",
+                marginBottom: "15px",
+              }}
+            />
+
+            <button
+              type="submit"
+              style={{
+                padding: "12px 20px",
+                background: "#1976d2",
+                color: "white",
+                border: "none",
+                cursor: "pointer",
+              }}
+            >
+              {editingEmployee ? "Update Employee" : "Add Employee"}
+            </button>
+
+          </form>
+        </div>
+      </div>
+    </>
   );
 }
 
