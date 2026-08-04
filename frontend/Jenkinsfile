@@ -1,29 +1,15 @@
 pipeline {
     agent any
 
+    triggers {
+        cron('H/2 * * * *')
+    }
+
     stages {
         stage('Build') {
             steps {
-                echo 'Building Application'
+                echo 'Scheduled Pipeline Build Successful'
             }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Running Tests'
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo 'Deploying Application'
-            }
-        }
-    }
-
-    post {
-        always {
-            echo 'Pipeline Finished'
         }
     }
 }
