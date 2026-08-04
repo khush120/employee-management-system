@@ -1,14 +1,29 @@
 pipeline {
     agent any
 
-    triggers {
-        cron('H/2 * * * *')
-    }
-
     stages {
+
+        stage('Checkout') {
+            steps {
+                echo 'Checking out source code...'
+            }
+        }
+
         stage('Build') {
             steps {
-                echo 'Scheduled Pipeline Build Successful'
+                echo 'Building application...'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Running tests...'
+            }
+        }
+
+        stage('Ready for Delivery') {
+            steps {
+                echo 'Application is ready for deployment.'
             }
         }
     }
