@@ -37,9 +37,13 @@ function AddEmployee() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    console.log("Button Clicked");
+
     if (editingEmployee) {
       const updatedEmployees = employees.map((emp) =>
-        emp.id === editingEmployee.id ? employee : emp
+        emp.id === editingEmployee.id
+          ? { ...employee, id: editingEmployee.id }
+          : emp
       );
 
       setEmployees(updatedEmployees);
@@ -87,6 +91,7 @@ function AddEmployee() {
               placeholder="Employee Name"
               value={employee.name}
               onChange={handleChange}
+              required
               style={{
                 width: "100%",
                 padding: "10px",
@@ -100,6 +105,7 @@ function AddEmployee() {
               placeholder="Email"
               value={employee.email}
               onChange={handleChange}
+              required
               style={{
                 width: "100%",
                 padding: "10px",
@@ -113,6 +119,7 @@ function AddEmployee() {
               placeholder="Department"
               value={employee.department}
               onChange={handleChange}
+              required
               style={{
                 width: "100%",
                 padding: "10px",
@@ -126,6 +133,7 @@ function AddEmployee() {
               placeholder="Salary"
               value={employee.salary}
               onChange={handleChange}
+              required
               style={{
                 width: "100%",
                 padding: "10px",
@@ -141,6 +149,7 @@ function AddEmployee() {
                 color: "white",
                 border: "none",
                 cursor: "pointer",
+                borderRadius: "5px",
               }}
             >
               {editingEmployee ? "Update Employee" : "Add Employee"}
