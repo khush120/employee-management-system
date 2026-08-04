@@ -21,10 +21,16 @@ pipeline {
             }
         }
 
-        stage('Ready for Delivery') {
+        stage('Deploy') {
             steps {
-                echo 'Application is ready for deployment.'
+                echo 'Deploying application automatically...'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Application deployed successfully.'
         }
     }
 }
