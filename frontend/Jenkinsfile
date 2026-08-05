@@ -5,32 +5,37 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                echo 'Checking out source code...'
+                git branch: 'frontend',
+                    url: 'https://github.com/khush120/employee-management-system.git'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                dir('frontend') {
+                    bat 'npm install'
+                }
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building application...'
+                dir('frontend') {
+                    bat 'npm run build'
+                }
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Running tests...'
+                echo 'No tests configured'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application automatically...'
+                echo 'Application Ready for Deployment'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Application deployed successfully.'
         }
     }
 }
