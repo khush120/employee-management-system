@@ -3,7 +3,7 @@ package com.employee;
 public class EmployeeApplication {
 
     public static String getMessage() {
-        return "Employee API added by Developer A";
+        return "Employee Management API is running";
     }
 
     public static void main(String[] args) {
