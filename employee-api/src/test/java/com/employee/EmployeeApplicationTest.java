@@ -9,7 +9,7 @@ class EmployeeApplicationTest {
     @Test
     void testEmployeeApiMessage() {
         assertEquals(
-            "Employee API added by Developer A",
+            "Employee Management API is running",
             EmployeeApplication.getMessage()
         );
     }
