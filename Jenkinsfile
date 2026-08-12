@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools {
+        jdk 'JDK-21'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -27,7 +31,7 @@ pipeline {
         stage('Package') {
             steps {
                 dir('employee-api') {
-                    bat 'mvn package -DskipTests'
+                    bat 'mvn package'
                 }
             }
         }
