@@ -13,4 +13,12 @@ class EmployeeApplicationTest {
             EmployeeApplication.getMessage()
         );
     }
+
+    @Test
+    void testEmployeeServiceMessage() {
+        assertEquals(
+            "Employee service is working",
+            EmployeeApplication.getEmployeeServiceMessage()
+        );
+    }
 }
